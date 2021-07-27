@@ -4,25 +4,30 @@ exports.welcome = function welcome() {
   const voiceResponse = new VoiceResponse();
 
   const gather = voiceResponse.gather({
+    input: 'DTMF speech', // changes made here
+    timeout:'5',
+    hints:'updates, tree',
     action: '/ivr/menu',
     numDigits: '1',
     method: 'POST',
   });
 
   gather.say(
-    'Thanks for calling the E T Phone Home Service. ' +
-    'Please press 1 for directions. ' +
-    'Press 2 for a list of planets to call.',
-    {loop: 3}
+    'Welcome to Aani\'s I V R Implementation       ' +
+    'If you want to hear updates on the project, Please press 1 or say updates' +
+    'If want to check out the I V R tree, Please press 2 or say tree',
+    {loop: 1, voice: 'alice', language: 'en-GB'}
   );
-
+  console.log('hello');
   return voiceResponse.toString();
+  
+ 
 };
 
 exports.menu = function menu(digit) {
   const optionActions = {
-    '1': giveExtractionPointInstructions,
-    '2': listPlanets,
+    '1': ivrUpdate,
+    '2': callAni,
   };
 
   return (optionActions[digit])
@@ -30,11 +35,11 @@ exports.menu = function menu(digit) {
     : redirectWelcome();
 };
 
-exports.planets = function planets(digit) {
+exports.aniNum = function aniNum(digit) {
   const optionActions = {
-    '2': '+12024173378',
-    '3': '+12027336386',
-    '4': '+12027336637',
+    '2': '+16056958069',
+    '3': '+16056958069',
+    '4': '+16056958069',
   };
 
   if (optionActions[digit]) {
@@ -50,24 +55,27 @@ exports.planets = function planets(digit) {
  * Returns Twiml
  * @return {String}
  */
-function giveExtractionPointInstructions() {
+function ivrUpdate() {
   const twiml = new VoiceResponse();
 
+  twiml.say({
+    voice: 'alice'
+    },'Project updates are as following:');
+
   twiml.say(
-    'To get to your extraction point, get on your bike and go down ' +
-    'the street. Then Left down an alley. Avoid the police cars. Turn left ' +
-    'into an unfinished housing development. Fly over the roadblock. Go ' +
-    'passed the moon. Soon after you will see your mother ship.',
+    'This is the second iteration for the IVR.' +
+    'The voice recognition is now working' +
+    'This project is fun',
     {voice: 'alice', language: 'en-GB'}
   );
 
   twiml.say(
-    'Thank you for calling the ET Phone Home Service - the ' +
-    'adventurous alien\'s first choice in intergalactic travel'
+    'Thank you for calling the Phone IVR Service - the ' +
+    'support team\'s first choice in learning twilio',
+    {voice: 'alice', language: 'en-GB'} 
   );
 
   twiml.hangup();
-
   return twiml.toString();
 }
 
@@ -75,18 +83,23 @@ function giveExtractionPointInstructions() {
  * Returns a TwiML to interact with the client
  * @return {String}
  */
-function listPlanets() {
+function callAni() {
   const twiml = new VoiceResponse();
-
+  
   const gather = twiml.gather({
-    action: '/ivr/planets',
+    input: 'DTMF speech', // changes made here
+    timeout:'5',
+    hints:'call, magic phone, nice idea',
+    action: '/ivr/aniNum',
     numDigits: '1',
     method: 'POST',
   });
 
   gather.say(
-    'To call the planet Broh doe As O G, press 2. To call the planet DuhGo ' +
-    'bah, press 3. To call an oober asteroid to your location, press 4. To ' +
+    'Trees are nice, I like the tall ones!' +
+    'All you can do is Call Ani' + 
+    'To call Ani, press 2 or Say CALL, To call Ani  ' +
+    'press 3 or Say Magic phone. To call Ani, press 4 or say Nice idea. To ' +
     'go back to the main menu, press the star key ',
     {voice: 'alice', language: 'en-GB', loop: 3}
   );
@@ -98,10 +111,10 @@ function listPlanets() {
  * Returns an xml with the redirect
  * @return {String}
  */
-function redirectWelcome() {
+ exports.redirectWelcome = function redirectWelcome() {
   const twiml = new VoiceResponse();
 
-  twiml.say('Returning to the main menu', {
+  twiml.say('I do not understand the response,' + 'Returning to the main menu',{
     voice: 'alice',
     language: 'en-GB',
   });

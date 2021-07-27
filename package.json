@@ -1,32 +1,21 @@
 {
-  "name": "ivr-phone-tree-node",
-  "version": "1.0.0",
-  "scripts": {
-    "start": "node index.js",
-    "test": "NODE_ENV=test && ./node_modules/.bin/eslint . && ./node_modules/.bin/jest"
-  },
-  "description": "Create an IVR phone tree with Node and Twilio.",
-  "author": {
-    "name": "Omar Ahmed",
-    "email": "neb.trx@gmail.com"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TwilioDevEd/ivr-phone-tree-node"
-  },
-  "keywords": [
-    "node",
-    "ivr",
-    "twilio",
-    "express",
-    "twiml",
-    "webhooks"
-  ],
-  "engines": {
-    "node": ">=6.x"
-  },
-  "dependencies": {
+"name": "ivr_implementation",
+"version": "0.1",
+
+"scripts": {
+"init-ngrok-asset": "./ngrok http 3000",
+"init-server":"nodemon server.js",
+"start": "npm run init-server && npm run init-ngrok-asset"
+
+},
+
+"discription": "This program is an initial implementation of an IVR phone tree using Twilio IVR.",
+
+"author": {
+    "name": "Anirudh Dhoundiyal",
+    "email": "adhoundiyal@twilio.com"
+},
+"dependencies": {
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.3.2",
@@ -36,10 +25,6 @@
     "serve-favicon": "~2.3.2",
     "stylus": "0.54.5",
     "twilio": "^3.0.0-rc.17"
-  },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.1",
-    "jest": "^19.0.2"
   }
+
 }
